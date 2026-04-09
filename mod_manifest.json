@@ -1,0 +1,14 @@
+{
+  "id": "SwarmTheSpire",
+  "pck_name": "SwarmTheSpire",
+  "name": "蜂群尖塔",
+  "author": "幻雨心晴",
+  "description": "跟环牛圈的伙伴们一起爬塔吧！基于 RitsuLib 重新整理与迁移。",
+  "version": "1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "affects_gameplay": true,
+  "dependencies": [
+    "STS2-RitsuLib"
+  ]
+}

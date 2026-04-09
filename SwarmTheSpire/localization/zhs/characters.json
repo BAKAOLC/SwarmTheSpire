@@ -1,0 +1,17 @@
+{
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.aromaPrinciple": "[sine][blue]……等待……[/blue][/sine]",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.banter.alive.endTurnPing": "……",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.banter.dead.endTurnPing": "……",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.cardsModifierDescription": "Evil的卡牌现在会出现在奖励和商店中。",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.cardsModifierTitle": "Evil卡牌",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.description": "鱼叉的掌控者。\n[gold]Evil[/gold]能从地下室爬到塔顶吗？",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.eventDeathPrevention": "我还得继续等下去……",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.goldMonologue": "[sine]这些金币……也许能派上用场……[/sine]",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.possessiveAdjective": "她的",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.pronounObject": "她",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.pronounPossessive": "她的",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.pronounSubject": "她",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.title": "Evil",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.titleObject": "Evil",
+  "SWARM_THE_SPIRE_CHARACTER_EVIL_CHARACTER.unlockText": "用[pink]{Prerequisite}[/pink]进行一局游戏来解锁这个角色。"
+}

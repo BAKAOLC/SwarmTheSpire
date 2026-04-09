@@ -1,0 +1,8 @@
+{
+  "SWARM_THE_SPIRE_RELIC_MILES_RELIC.description": "在每场战斗开始时，给予全体敌人[blue]{MilesPower}[/blue]层[gold]/p[/gold]。",
+  "SWARM_THE_SPIRE_RELIC_MILES_RELIC.flavor": "Man I Love Evil.",
+  "SWARM_THE_SPIRE_RELIC_MILES_RELIC.title": "MILEs",
+  "SWARM_THE_SPIRE_RELIC_WE_ARE_MILES_RELIC.description": "在你的回合开始时，给予全体敌人[blue]{MilesPower}[/blue]层[gold]/p[/gold]。",
+  "SWARM_THE_SPIRE_RELIC_WE_ARE_MILES_RELIC.flavor": "Man I Love Evil.",
+  "SWARM_THE_SPIRE_RELIC_WE_ARE_MILES_RELIC.title": "我们是MILEs"
+}

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4lx301mj5jg6"]
+
+[ext_resource type="Script" uid="uid://bh3w8evlcre0j" path="res://Scripts/EvilCreatureVisuals.cs" id="1_creature_visuals"]
+[ext_resource type="Texture2D" uid="uid://ckgasgy6kpx1j" path="res://SwarmTheSpire/scenes/evil/Evil_character.png" id="2_texture"]
+
+[node name="evil_character" type="Node2D"]
+script = ExtResource("1_creature_visuals")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(41, -187)
+scale = Vector2(2.9320672, 2.9084787)
+texture = ExtResource("2_texture")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -120.0
+offset_top = -317.0
+offset_right = 104.577576
+offset_bottom = -0.8843994
+scale = Vector2(2.0343742, 0.9613526)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -159)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, -80)

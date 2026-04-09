@@ -1,0 +1,20 @@
+{
+  "SWARM_THE_SPIRE_POWER_MILES_POWER.description": "/p们受到的攻击伤害会增加32.5%",
+  "SWARM_THE_SPIRE_POWER_MILES_POWER.smartDescription": "[blue]{Amount}[/blue]回合内，受到的攻击伤害增加[blue]32.5%[/blue]。",
+  "SWARM_THE_SPIRE_POWER_MILES_POWER.title": "/p",
+  "SWARM_THE_SPIRE_POWER_SWARM_POWER.description": "+p们造成的伤害会减少21%",
+  "SWARM_THE_SPIRE_POWER_SWARM_POWER.smartDescription": "[blue]{Amount}[/blue]回合内，造成的伤害增加[blue]32.5%[/blue]。",
+  "SWARM_THE_SPIRE_POWER_SWARM_POWER.title": "+p",
+  "SWARM_THE_SPIRE_POWER_QUEEN_POWER.description": "[gold]鱼叉[/gold]会命中所有敌人。",
+  "SWARM_THE_SPIRE_POWER_QUEEN_POWER.title": "鱼叉女王",
+  "SWARM_THE_SPIRE_POWER_CRAZY_FUCKING_ROBOT_BODY_POWER.description": "所有牌在打出时被[gold]消耗[/gold],卡牌被消耗时将你随机一张手牌的耗能变为[blue]0[/blue]。",
+  "SWARM_THE_SPIRE_POWER_CRAZY_FUCKING_ROBOT_BODY_POWER.title": "疯狂她妈的机器人身体",
+  "SWARM_THE_SPIRE_POWER_PLASMA_POWER.description": "[gold]虚弱[/gold]和具有格挡的敌人从攻击牌中受到额外[blue]30％[/blue]倍伤害。",
+  "SWARM_THE_SPIRE_POWER_PLASMA_POWER.smartDescription": "[gold]虚弱[/gold]和具有格挡的敌人从攻击牌中受到额外[blue]{Amount}％[/blue]倍伤害。",
+  "SWARM_THE_SPIRE_POWER_PLASMA_POWER.title": "等离子球",
+  "SWARM_THE_SPIRE_POWER_PIPES_POWER.description": "下回合开始时，会被钢管的余音震晕。",
+  "SWARM_THE_SPIRE_POWER_PIPES_POWER.title": "余音绕梁",
+  "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.description": "在你的回合开始时，将[blue]1[/blue]张随机食物牌加入你的[gold]手牌[/gold]。",
+  "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.smartDescription": "在你的回合开始时，将[blue]{Amount}[/blue]张随机食物牌加入你的[gold]手牌[/gold]。",
+  "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.title": "店员Evil"
+}

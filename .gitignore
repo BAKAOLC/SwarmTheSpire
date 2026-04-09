@@ -1,0 +1,15 @@
+.godot/
+bin/
+obj/
+/android/
+.idea/
+.vs/
+publish/
+Properties/
+packages/
+*.cs.uid
+*.user
+*.sln.DotSettings.user
+local.props
+!local.props.template
+godot.log

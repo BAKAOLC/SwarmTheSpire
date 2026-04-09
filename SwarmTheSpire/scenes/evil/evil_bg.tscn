@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw2cybqg55a4a"]
+
+[ext_resource type="Texture2D" uid="uid://cpp3gaoerwbnb" path="res://SwarmTheSpire/scenes/evil/Evil_bg.png" id="1"]
+
+[node name="EvilBg" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1")
+expand_mode = 1
+stretch_mode = 5
