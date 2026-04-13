@@ -43,6 +43,7 @@ namespace SwarmTheSpire.Content.Descriptors
             new CardRegistrationEntry<EvilCardPool, PlasmaGlobe>(),
             new CardRegistrationEntry<EvilCardPool, SoldOut>(),
             new CardRegistrationEntry<EvilCardPool, SpareHarpoon>(),
+            new CardRegistrationEntry<EvilCardPool, DualHarpoonEvil>(),
             new CardRegistrationEntry<EvilCardPool, CrazyFuckingRobotBody>(),
             new CardRegistrationEntry<EvilCardPool, CrewMemberEvil>(),
             new CardRegistrationEntry<EvilCardPool, EvilPlush>(),
@@ -60,10 +61,10 @@ namespace SwarmTheSpire.Content.Descriptors
             new RelicRegistrationEntry<EvilRelicPool, BoneRelic>(),
             new RelicRegistrationEntry<EvilRelicPool, StringRelic>(),
             new RelicRegistrationEntry<EvilRelicPool, RottenFleshRelic>(),
-            new RelicRegistrationEntry<EvilRelicPool, CommonCardsRelic>(),
-            new RelicRegistrationEntry<EvilRelicPool, CommonPotionRelic>(),
-            new RelicRegistrationEntry<EvilRelicPool, UncommonCardsRelic>(),
-            new RelicRegistrationEntry<EvilRelicPool, UncommonPotionRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, RawCodRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, RawSalmonRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, TropicalFishRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, NautilusShellRelic>(),
             new RelicRegistrationEntry<EvilRelicPool, RareCardsRelic>(),
             new RelicRegistrationEntry<EvilRelicPool, RarePotionRelic>(),
             new TouchOfOrobasRefinementRegistrationEntry<MilesRelic, WeAreMilesRelic>(),
@@ -85,6 +86,7 @@ namespace SwarmTheSpire.Content.Descriptors
             new PowerRegistrationEntry<CatchCommonCardPower>(),
             new PowerRegistrationEntry<CatchCommonPotionPower>(),
             new PowerRegistrationEntry<CatchCommonTokenPower>(),
+            new PowerRegistrationEntry<DualHarpoonEvilPower>(),
         ];
 
         public static IReadOnlyList<KeywordRegistrationEntry> KeywordEntries { get; } =

@@ -80,6 +80,10 @@ namespace SwarmTheSpire.Relics
                             ModelDb.Relic<RottenFleshRelic>().ToMutable(),
                             ModelDb.Relic<BoneRelic>().ToMutable(),
                             ModelDb.Relic<StringRelic>().ToMutable(),
+                            ModelDb.Relic<TropicalFishRelic>().ToMutable(),
+                            ModelDb.Relic<RawCodRelic>().ToMutable(),
+                            ModelDb.Relic<RawSalmonRelic>().ToMutable(),
+                            ModelDb.Relic<SwordOfStone>().ToMutable(),
                         }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
 
                         if (candidates.Count == 0)
@@ -95,7 +99,12 @@ namespace SwarmTheSpire.Relics
                         {
                             ModelDb.Relic<Anchor>().ToMutable(),
                             ModelDb.Relic<HornCleat>().ToMutable(),
-                            ModelDb.Relic<SwordOfStone>().ToMutable(),
+                            ModelDb.Relic<BeatingRemnant>().ToMutable(),
+                            ModelDb.Relic<NautilusShellRelic>().ToMutable(),
+                            ModelDb.Relic<TropicalFishRelic>().ToMutable(),
+                            ModelDb.Relic<RawSalmonRelic>().ToMutable(),
+                            ModelDb.Relic<RottenFleshRelic>().ToMutable(),
+                            ModelDb.Relic<CaptainsWheel>().ToMutable(),
                         }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
 
                         if (candidates.Count == 0)
@@ -109,9 +118,7 @@ namespace SwarmTheSpire.Relics
                     {
                         var candidates = new List<RelicModel>
                         {
-                            ModelDb.Relic<CaptainsWheel>().ToMutable(),
                             ModelDb.Relic<WhiteStar>().ToMutable(),
-                            ModelDb.Relic<BeatingRemnant>().ToMutable(),
                             ModelDb.Relic<TungstenRod>().ToMutable(),
                             ModelDb.Relic<OldCoin>().ToMutable(),
                         }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
