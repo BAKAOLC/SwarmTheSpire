@@ -5,25 +5,21 @@ namespace SwarmTheSpire.Relics
 {
     public abstract class StackableCatchRelicTemplate : SwarmRelicTemplate
     {
-        private int _catchStacks = 1;
-
         [SavedProperty]
         public int CatchStacks
         {
-            get => _catchStacks;
+            get;
             set
             {
                 AssertMutable();
-                _catchStacks = Math.Max(1, value);
+                field = Math.Max(1, value);
                 InvokeDisplayAmountChanged();
             }
-        }
+        } = 1;
 
         public override bool ShowCounter => CatchStacks > 1;
 
         public override int DisplayAmount => CatchStacks;
-
-        protected decimal StackMultiplier => CatchStacks;
 
         protected async Task MergeDuplicateIntoSingleSlot()
         {
@@ -50,7 +46,7 @@ namespace SwarmTheSpire.Relics
         }
 
         /// <summary>
-        /// 合并时由保留实例（新获得）吸收旧实例；在移除旧遗物前调用，子类可在此迁移 <see cref="SavedProperty"/> 等状态。
+        ///     合并时由保留实例（新获得）吸收旧实例；在移除旧遗物前调用，子类可在此迁移 <see cref="SavedProperties.SavedProperty{T}" /> 等状态。
         /// </summary>
         /// <param name="absorbed">即将被移除的同类旧遗物。</param>
         protected virtual void MergeStateFromDuplicate(StackableCatchRelicTemplate absorbed)

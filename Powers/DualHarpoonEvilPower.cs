@@ -31,11 +31,8 @@ namespace SwarmTheSpire.Powers
 
         public override Task BeforeCardPlayed(CardPlay cardPlay)
         {
-            if (_wasUsedThisTurn || _trackedCard is not null)
-                return Task.CompletedTask;
-            if (cardPlay.Card.Owner != Owner.Player)
-                return Task.CompletedTask;
-            if (!cardPlay.Card.GetModKeywordIds()
+            if (_wasUsedThisTurn || _trackedCard is not null || cardPlay.Card.Owner != Owner.Player || !cardPlay.Card
+                    .GetModKeywordIds()
                     .Contains(ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")))
                 return Task.CompletedTask;
 

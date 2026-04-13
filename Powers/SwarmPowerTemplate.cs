@@ -6,9 +6,7 @@ namespace SwarmTheSpire.Powers
     {
         public virtual string CustomPackedIconPath => Const.Paths.SharedPowerIcon;
 
-        public override string? CustomBigIconPath => CustomPackedIconPath;
-
-        public virtual string? CustomBigBetaIconPath => null;
+        public override string CustomBigIconPath => CustomPackedIconPath;
 
         public override PowerAssetProfile AssetProfile => new(CustomPackedIconPath, CustomBigIconPath);
     }

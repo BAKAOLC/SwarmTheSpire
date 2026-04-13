@@ -56,10 +56,12 @@ namespace SwarmTheSpire.Cards
                 TryIncrementCatch(shouldTriggerFatal, followUpAttack);
             }
 
+            return;
+
             void TryIncrementCatch(bool canTriggerFatal, AttackCommand attackCommand)
             {
                 if (!canTriggerFatal ||
-                    !attackCommand.Results.Any(static result => result.OverkillDamage == 0 && result.WasTargetKilled))
+                    !attackCommand.Results.Any(static result => result is { OverkillDamage: 0, WasTargetKilled: true }))
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);

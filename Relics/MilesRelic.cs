@@ -16,8 +16,6 @@ namespace SwarmTheSpire.Relics
 {
     public class MilesRelic : SwarmRelicTemplate
     {
-        private int _catchesCount;
-
         public override RelicRarity Rarity => RelicRarity.Starter;
 
         public override bool ShowCounter => true;
@@ -33,11 +31,11 @@ namespace SwarmTheSpire.Relics
         [SavedProperty]
         public int CatchesCount
         {
-            get => _catchesCount;
+            get;
             set
             {
                 AssertMutable();
-                _catchesCount = value;
+                field = value;
                 InvokeDisplayAmountChanged();
             }
         }
