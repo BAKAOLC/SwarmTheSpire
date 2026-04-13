@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace SwarmTheSpire.Relics
 {
-    public class TropicalFishRelic : SwarmRelicTemplate
+    public class TropicalFishRelic : StackableCatchRelicTemplate
     {
         public override RelicRarity Rarity => RelicRarity.Common;
 
@@ -13,13 +13,14 @@ namespace SwarmTheSpire.Relics
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new MaxHpVar(3m),
-            new DynamicVar("Gold", 30m),
+            new("Gold", 30m),
         ];
 
         public override async Task AfterObtained()
         {
             await CreatureCmd.GainMaxHp(Owner.Creature, DynamicVars.MaxHp.BaseValue);
             await PlayerCmd.GainGold(DynamicVars["Gold"].IntValue, Owner);
+            await MergeDuplicateIntoSingleSlot();
         }
     }
 }

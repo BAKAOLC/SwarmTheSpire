@@ -18,7 +18,8 @@ namespace SwarmTheSpire.Powers
 
         private bool HasBossPower => CombatManager.Instance.IsInProgress && Owner.HasPower<BossPower>();
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
+            CardModel? cardSource)
         {
             if (Amount <= 0)
                 return;
@@ -31,11 +32,11 @@ namespace SwarmTheSpire.Powers
 
             if (HasMonsterPower)
             {
-                var rewards = new PowerModel[]
+                var rewards = new[]
                 {
-                    ModelDb.Power<CatchCommonCardPower>().ToMutable(0),
-                    ModelDb.Power<CatchCommonPotionPower>().ToMutable(0),
-                    ModelDb.Power<CatchCommonTokenPower>().ToMutable(0),
+                    ModelDb.Power<CatchCommonCardPower>().ToMutable(),
+                    ModelDb.Power<CatchCommonPotionPower>().ToMutable(),
+                    ModelDb.Power<CatchCommonTokenPower>().ToMutable(),
                 };
                 player.RunState.Rng.CombatCardGeneration.Shuffle(rewards);
                 await PowerCmd.Apply(rewards[0], Owner, 1m, Owner, null);

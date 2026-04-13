@@ -16,10 +16,7 @@ namespace SwarmTheSpire.Powers
             if (player != Owner.Player || room?.RoomType != RoomType.Monster)
                 return false;
 
-            for (var i = 0; i < Amount; i++)
-            {
-                rewards.Add(new RelicReward(Owner.Player));
-            }
+            for (var i = 0; i < Amount; i++) rewards.Add(new RelicReward(Owner.Player));
 
             return true;
         }

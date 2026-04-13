@@ -14,7 +14,8 @@ namespace SwarmTheSpire.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(7m)];
 
-        private bool HasCrewMemberPower => CombatManager.Instance.IsInProgress && Owner.Creature.HasPower<CrewmemberPower>();
+        private bool HasCrewMemberPower =>
+            CombatManager.Instance.IsInProgress && Owner.Creature.HasPower<CrewmemberPower>();
 
         protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

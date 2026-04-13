@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Content;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
@@ -20,7 +21,7 @@ namespace SwarmTheSpire.Cards
             [CardKeyword.Exhaust, CardKeyword.Retain];
 
         protected override IEnumerable<string> RegisteredKeywordIds =>
-            [STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
+            [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.Static(StaticHoverTip.Fatal)];
@@ -47,7 +48,8 @@ namespace SwarmTheSpire.Cards
                 ArgumentNullException.ThrowIfNull(combatState);
                 foreach (var hittableEnemy in combatState.HittableEnemies)
                 {
-                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(hittableEnemy)
+                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
+                        .Targeting(hittableEnemy)
                         .Execute(choiceContext);
                     TryIncrementCatch(shouldTriggerFatal, followUpAttack);
                 }
@@ -57,7 +59,8 @@ namespace SwarmTheSpire.Cards
 
             void TryIncrementCatch(bool canTriggerFatal, AttackCommand attackCommand)
             {
-                if (!canTriggerFatal || !attackCommand.Results.Any(static result => result.OverkillDamage == 0 && result.WasTargetKilled))
+                if (!canTriggerFatal ||
+                    !attackCommand.Results.Any(static result => result.OverkillDamage == 0 && result.WasTargetKilled))
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);

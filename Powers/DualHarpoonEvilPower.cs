@@ -1,4 +1,3 @@
-using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -7,21 +6,22 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
+using STS2RitsuLib.Content;
 using STS2RitsuLib.Keywords;
 
 namespace SwarmTheSpire.Powers
 {
     public sealed class DualHarpoonEvilPower : SwarmPowerTemplate
     {
-        private bool _wasUsedThisTurn;
         private CardModel? _trackedCard;
+        private bool _wasUsedThisTurn;
 
         public override PowerType Type => PowerType.Buff;
 
         public override PowerStackType StackType => PowerStackType.Single;
 
         protected override IEnumerable<string> RegisteredKeywordIds =>
-            [STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
+            [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
@@ -35,7 +35,8 @@ namespace SwarmTheSpire.Powers
                 return Task.CompletedTask;
             if (cardPlay.Card.Owner != Owner.Player)
                 return Task.CompletedTask;
-            if (!cardPlay.Card.GetModKeywordIds().Contains(STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")))
+            if (!cardPlay.Card.GetModKeywordIds()
+                    .Contains(ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")))
                 return Task.CompletedTask;
 
             _trackedCard = cardPlay.Card;
@@ -55,7 +56,8 @@ namespace SwarmTheSpire.Powers
             _trackedCard = null;
         }
 
-        public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+        public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+            CombatState combatState)
         {
             if (side != Owner.Side)
                 return Task.CompletedTask;

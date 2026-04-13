@@ -2,10 +2,10 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Content;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
@@ -15,7 +15,7 @@ namespace SwarmTheSpire.Cards
         : SwarmCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
         protected override IEnumerable<string> RegisteredKeywordIds =>
-            [STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
+            [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
         protected override HashSet<CardTag> CanonicalTags => [];
 
@@ -52,7 +52,8 @@ namespace SwarmTheSpire.Cards
                 ArgumentNullException.ThrowIfNull(combatState);
                 foreach (var hittableEnemy in combatState.HittableEnemies)
                 {
-                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(hittableEnemy)
+                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
+                        .Targeting(hittableEnemy)
                         .Execute(choiceContext);
                     TryIncrementCatch(shouldTriggerFatal, followUpAttack);
                 }
@@ -67,7 +68,8 @@ namespace SwarmTheSpire.Cards
 
             void TryIncrementCatch(bool canTriggerFatal, AttackCommand attackCommand)
             {
-                if (!canTriggerFatal || !attackCommand.Results.Any(static result => result.OverkillDamage == 0 && result.WasTargetKilled))
+                if (!canTriggerFatal ||
+                    !attackCommand.Results.Any(static result => result.OverkillDamage == 0 && result.WasTargetKilled))
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);

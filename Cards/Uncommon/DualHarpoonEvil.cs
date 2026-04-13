@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using STS2RitsuLib.Content;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
@@ -13,7 +14,7 @@ namespace SwarmTheSpire.Cards
             [CardKeyword.Retain, CardKeyword.Exhaust];
 
         protected override IEnumerable<string> RegisteredKeywordIds =>
-            [STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
+            [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromKeyword(CardKeyword.Retain), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];

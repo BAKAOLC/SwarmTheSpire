@@ -14,7 +14,8 @@ namespace SwarmTheSpire.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
+            CardModel? cardSource)
         {
             if (Amount <= 0)
                 return;
@@ -30,7 +31,8 @@ namespace SwarmTheSpire.Powers
                 ModelDb.Card<Coffee>(),
                 ModelDb.Card<HotChicken>(),
             ];
-            var forCombat = CardFactory.GetForCombat(player, cardsToChoose, 1, player.RunState.Rng.CombatCardGeneration);
+            var forCombat =
+                CardFactory.GetForCombat(player, cardsToChoose, 1, player.RunState.Rng.CombatCardGeneration);
             await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Hand, true, CardPilePosition.Top);
             await PowerCmd.Decrement(this);
         }

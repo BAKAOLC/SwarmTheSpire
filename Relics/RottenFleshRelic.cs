@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace SwarmTheSpire.Relics
 {
-    public class RottenFleshRelic : SwarmRelicTemplate
+    public class RottenFleshRelic : StackableCatchRelicTemplate
     {
         public override RelicRarity Rarity => RelicRarity.Common;
 
@@ -15,7 +15,8 @@ namespace SwarmTheSpire.Relics
 
         public override async Task AfterObtained()
         {
-            await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue, true);
+            await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
+            await MergeDuplicateIntoSingleSlot();
         }
     }
 }

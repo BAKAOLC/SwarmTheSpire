@@ -1,5 +1,5 @@
-using STS2RitsuLib.Scaffolding.Content;
 using STS2RitsuLib.Keywords;
+using STS2RitsuLib.Scaffolding.Content;
 using SwarmTheSpire.Cards;
 using SwarmTheSpire.Character;
 using SwarmTheSpire.Powers;

@@ -155,6 +155,5 @@ namespace SwarmTheSpire.Relics
                     break;
             }
         }
-
     }
 }

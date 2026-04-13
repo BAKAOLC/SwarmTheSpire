@@ -18,9 +18,8 @@ namespace SwarmTheSpire.Powers
                 return false;
 
             for (var i = 0; i < Amount; i++)
-            {
-                rewards.Add(new CardReward(CardCreationOptions.ForRoom(Owner.Player, RoomType.Monster), 3, Owner.Player));
-            }
+                rewards.Add(
+                    new CardReward(CardCreationOptions.ForRoom(Owner.Player, RoomType.Monster), 3, Owner.Player));
 
             return true;
         }

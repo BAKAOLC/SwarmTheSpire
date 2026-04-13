@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace SwarmTheSpire.Relics
 {
-    public class RawSalmonRelic : SwarmRelicTemplate
+    public class RawSalmonRelic : StackableCatchRelicTemplate
     {
         public override RelicRarity Rarity => RelicRarity.Common;
 
@@ -16,6 +16,7 @@ namespace SwarmTheSpire.Relics
         public override async Task AfterObtained()
         {
             await CreatureCmd.GainMaxHp(Owner.Creature, DynamicVars.MaxHp.BaseValue);
+            await MergeDuplicateIntoSingleSlot();
         }
     }
 }

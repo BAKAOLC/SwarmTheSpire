@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace SwarmTheSpire.Relics
 {
-    public class NautilusShellRelic : SwarmRelicTemplate
+    public class NautilusShellRelic : StackableCatchRelicTemplate
     {
         public override RelicRarity Rarity => RelicRarity.Common;
 
@@ -20,13 +20,21 @@ namespace SwarmTheSpire.Relics
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<BufferPower>()];
 
-        public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+        public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+            CombatState combatState)
         {
             if (side != Owner.Creature.Side || combatState.RoundNumber > 1)
                 return;
 
             Flash();
-            await PowerCmd.Apply<BufferPower>(Owner.Creature, DynamicVars["BufferPower"].BaseValue, Owner.Creature, null);
+            for (var i = 0; i < CatchStacks; i++)
+                await PowerCmd.Apply<BufferPower>(Owner.Creature, DynamicVars["BufferPower"].BaseValue, Owner.Creature,
+                    null);
+        }
+
+        public override async Task AfterObtained()
+        {
+            await MergeDuplicateIntoSingleSlot();
         }
     }
 }
