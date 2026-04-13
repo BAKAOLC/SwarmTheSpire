@@ -44,8 +44,17 @@ namespace SwarmTheSpire.Relics
 
             foreach (var duplicate in duplicates)
             {
+                MergeStateFromDuplicate(duplicate);
                 await RelicCmd.Remove(duplicate);
             }
+        }
+
+        /// <summary>
+        /// 合并时由保留实例（新获得）吸收旧实例；在移除旧遗物前调用，子类可在此迁移 <see cref="SavedProperty"/> 等状态。
+        /// </summary>
+        /// <param name="absorbed">即将被移除的同类旧遗物。</param>
+        protected virtual void MergeStateFromDuplicate(StackableCatchRelicTemplate absorbed)
+        {
         }
     }
 }
