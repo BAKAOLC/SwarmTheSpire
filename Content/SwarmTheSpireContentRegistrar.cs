@@ -9,6 +9,7 @@ namespace SwarmTheSpire.Content
         {
             RitsuLibFramework.CreateContentPack(Const.ModId)
                 .ContentManifest(SwarmTheSpireContentManifest.ContentEntries)
+                .KeywordManifest(SwarmTheSpireContentManifest.KeywordEntries)
                 .Apply();
         }
     }

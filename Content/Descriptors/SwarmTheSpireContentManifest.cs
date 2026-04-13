@@ -1,4 +1,5 @@
 using STS2RitsuLib.Scaffolding.Content;
+using STS2RitsuLib.Keywords;
 using SwarmTheSpire.Cards;
 using SwarmTheSpire.Character;
 using SwarmTheSpire.Powers;
@@ -41,6 +42,7 @@ namespace SwarmTheSpire.Content.Descriptors
             new CardRegistrationEntry<EvilCardPool, Location>(),
             new CardRegistrationEntry<EvilCardPool, PlasmaGlobe>(),
             new CardRegistrationEntry<EvilCardPool, SoldOut>(),
+            new CardRegistrationEntry<EvilCardPool, SpareHarpoon>(),
             new CardRegistrationEntry<EvilCardPool, CrazyFuckingRobotBody>(),
             new CardRegistrationEntry<EvilCardPool, CrewMemberEvil>(),
             new CardRegistrationEntry<EvilCardPool, EvilPlush>(),
@@ -55,6 +57,15 @@ namespace SwarmTheSpire.Content.Descriptors
         [
             new RelicRegistrationEntry<EvilRelicPool, MilesRelic>(),
             new RelicRegistrationEntry<EvilRelicPool, WeAreMilesRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, BoneRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, StringRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, RottenFleshRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, CommonCardsRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, CommonPotionRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, UncommonCardsRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, UncommonPotionRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, RareCardsRelic>(),
+            new RelicRegistrationEntry<EvilRelicPool, RarePotionRelic>(),
             new TouchOfOrobasRefinementRegistrationEntry<MilesRelic, WeAreMilesRelic>(),
         ];
 
@@ -67,6 +78,18 @@ namespace SwarmTheSpire.Content.Descriptors
             new PowerRegistrationEntry<PlasmaPower>(),
             new PowerRegistrationEntry<PipesPower>(),
             new PowerRegistrationEntry<CrewmemberPower>(),
+            new PowerRegistrationEntry<MonsterPower>(),
+            new PowerRegistrationEntry<ElitePower>(),
+            new PowerRegistrationEntry<BossPower>(),
+            new PowerRegistrationEntry<CatchesPower>(),
+            new PowerRegistrationEntry<CatchCommonCardPower>(),
+            new PowerRegistrationEntry<CatchCommonPotionPower>(),
+            new PowerRegistrationEntry<CatchCommonTokenPower>(),
+        ];
+
+        public static IReadOnlyList<KeywordRegistrationEntry> KeywordEntries { get; } =
+        [
+            KeywordRegistrationEntry.OwnedCard(Const.ModId, "harpoon", "HARPOON"),
         ];
 
         public static IReadOnlyList<IContentRegistrationEntry> ContentEntries { get; } =

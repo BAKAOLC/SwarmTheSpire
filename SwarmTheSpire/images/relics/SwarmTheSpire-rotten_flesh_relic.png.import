@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://43ejfgvq36d6"
-path="res://.godot/imported/SwarmTheSpire-we_are_miles_relic.png-358b1ff8cd4b3967bf509adf2d399799.ctex"
+uid="uid://nsl6svlda626"
+path="res://.godot/imported/SwarmTheSpire-rotten_flesh_relic.png-7093ec6fa5de60afc7715e96bf6f4309.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SwarmTheSpire/images/relics/SwarmTheSpire-we_are_miles_relic.png"
-dest_files=["res://.godot/imported/SwarmTheSpire-we_are_miles_relic.png-358b1ff8cd4b3967bf509adf2d399799.ctex"]
+source_file="res://SwarmTheSpire/images/relics/SwarmTheSpire-rotten_flesh_relic.png"
+dest_files=["res://.godot/imported/SwarmTheSpire-rotten_flesh_relic.png-7093ec6fa5de60afc7715e96bf6f4309.ctex"]
 
 [params]
 

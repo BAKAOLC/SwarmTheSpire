@@ -6,7 +6,7 @@ namespace SwarmTheSpire.Cards
     {
         internal static bool IsHarpoon(CardModel? card)
         {
-            return card is HarpoonThrust or HarpoonPursuit or HarpoonImpale;
+            return card is HarpoonThrust or HarpoonPursuit or HarpoonImpale or SpareHarpoon;
         }
     }
 }

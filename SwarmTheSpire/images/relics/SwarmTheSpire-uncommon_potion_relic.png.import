@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://43ejfgvq36d6"
-path="res://.godot/imported/SwarmTheSpire-we_are_miles_relic.png-358b1ff8cd4b3967bf509adf2d399799.ctex"
+uid="uid://jluf3jxgow3b"
+path="res://.godot/imported/SwarmTheSpire-uncommon_potion_relic.png-73f14211e1bee4b5c03d6136bdc662f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SwarmTheSpire/images/relics/SwarmTheSpire-we_are_miles_relic.png"
-dest_files=["res://.godot/imported/SwarmTheSpire-we_are_miles_relic.png-358b1ff8cd4b3967bf509adf2d399799.ctex"]
+source_file="res://SwarmTheSpire/images/relics/SwarmTheSpire-uncommon_potion_relic.png"
+dest_files=["res://.godot/imported/SwarmTheSpire-uncommon_potion_relic.png-73f14211e1bee4b5c03d6136bdc662f7.ctex"]
 
 [params]
 

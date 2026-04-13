@@ -9,6 +9,8 @@
   "SWARM_THE_SPIRE_CARD_HARPOON_IMPALE.title": "鱼叉贯穿",
   "SWARM_THE_SPIRE_CARD_HARPOON_PURSUIT.description": "造成{Damage:diff()}点伤害。\n如果你上一张打出的牌是[gold]鱼叉牌[/gold]，获得1点能量",
   "SWARM_THE_SPIRE_CARD_HARPOON_PURSUIT.title": "鱼叉追击",
+  "SWARM_THE_SPIRE_CARD_SPARE_HARPOON.description": "造成{Damage:diff()}点伤害，抽{Cards:diff()}张牌。\n当你打出一张非备用鱼叉的[gold]鱼叉牌[/gold]时，将此牌从消耗堆加入你的手牌。",
+  "SWARM_THE_SPIRE_CARD_SPARE_HARPOON.title": "备用鱼叉",
   "SWARM_THE_SPIRE_CARD_EVIL_STREAM.description": "给予一名敌人{MilesPower:diff()}层[gold]/p[/gold]。",
   "SWARM_THE_SPIRE_CARD_EVIL_STREAM.title": "Evil直播",
   "SWARM_THE_SPIRE_CARD_PIRATE_NEURO.description": "造成{Damage:diff()}点伤害。\n如果敌人的意图是攻击，则多攻击一次。",

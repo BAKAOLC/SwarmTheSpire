@@ -2,8 +2,8 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using SwarmTheSpire.Powers;
@@ -11,32 +11,27 @@ using SwarmTheSpire.Relics;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class HarpoonPursuit()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
+    public sealed class SpareHarpoon()
+        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
+        protected override HashSet<CardTag> CanonicalTags => [];
+
+        public override IEnumerable<CardKeyword> CanonicalKeywords =>
+            [CardKeyword.Exhaust, CardKeyword.Retain];
+
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [STS2RitsuLib.Content.ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
-        protected override HashSet<CardTag> CanonicalTags => [];
-
-        protected override bool ShouldGlowGoldInternal => WasLastCardPlayedHarpoon;
-
-        public override TargetType TargetType => HasQueenPower ? TargetType.AllEnemies : TargetType.AnyEnemy;
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+            [HoverTipFactory.Static(StaticHoverTip.Fatal)];
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new DamageVar(11m, ValueProp.Move)];
+        [
+            new DamageVar(9m, ValueProp.Move),
+            new CardsVar(1),
+        ];
 
         private bool HasQueenPower => CombatManager.Instance.IsInProgress && Owner.Creature.HasPower<QueenPower>();
-
-        private bool WasLastCardPlayedHarpoon
-        {
-            get
-            {
-                var val = CombatManager.Instance.History.CardPlaysStarted.LastOrDefault(e =>
-                    e.CardPlay.Card.Owner == Owner && e.CardPlay.Card != this);
-                return val != null && SwarmCardPredicates.IsHarpoon(val.CardPlay.Card);
-            }
-        }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -58,12 +53,7 @@ namespace SwarmTheSpire.Cards
                 }
             }
 
-            if (WasLastCardPlayedHarpoon)
-            {
-                var playerCombatState = Owner.PlayerCombatState;
-                ArgumentNullException.ThrowIfNull(playerCombatState);
-                playerCombatState.GainEnergy(1m);
-            }
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
             void TryIncrementCatch(bool canTriggerFatal, AttackCommand attackCommand)
             {
@@ -73,6 +63,19 @@ namespace SwarmTheSpire.Cards
                 MilesRelic.TryIncrementCatch(Owner);
                 WeAreMilesRelic.TryIncrementCatch(Owner);
             }
+        }
+
+        public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+        {
+            if (Pile?.Type != PileType.Discard)
+                return Task.CompletedTask;
+
+            var isHarpoon = SwarmCardPredicates.IsHarpoon(cardPlay.Card);
+            if (!isHarpoon || cardPlay.Card == this || cardPlay.Card.GetType() == GetType())
+                return Task.CompletedTask;
+
+            CardPileCmd.Add(this, PileType.Hand, CardPilePosition.Top);
+            return Task.CompletedTask;
         }
 
         protected override void OnUpgrade()
