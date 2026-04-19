@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using STS2RitsuLib.Audio;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
@@ -27,6 +28,8 @@ namespace SwarmTheSpire.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            Sts2SfxAlignedFmod.PlayOneShot(Const.Sfx.MetalPipeFalling);
+
             var combatState = CombatState;
             ArgumentNullException.ThrowIfNull(combatState);
             var hittableEnemies = combatState.HittableEnemies;

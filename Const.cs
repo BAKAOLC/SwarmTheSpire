@@ -62,6 +62,15 @@ namespace SwarmTheSpire
             {
                 return $"{Root}/images/relics/SwarmTheSpire-{ToSnakeCase(typeName)}.png";
             }
+
+            public const string EvilBank = $"{Root}/banks/Evil.bank";
+
+            public const string EvilGuidsFile = $"{Root}/banks/Evil.guids.txt";
+        }
+
+        public static class Sfx
+        {
+            public const string MetalPipeFalling = "event:/sfx/metal-pipe-falling-sound-effect";
         }
     }
 }
