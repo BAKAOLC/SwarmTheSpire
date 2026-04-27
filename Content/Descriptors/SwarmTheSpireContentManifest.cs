@@ -91,7 +91,7 @@ namespace SwarmTheSpire.Content.Descriptors
 
         public static IReadOnlyList<KeywordRegistrationEntry> KeywordEntries { get; } =
         [
-            KeywordRegistrationEntry.OwnedCard(Const.ModId, "harpoon", "HARPOON"),
+            KeywordRegistrationEntry.OwnedCardByLocNamespace(Const.ModId, "harpoon"),
         ];
 
         public static IReadOnlyList<IContentRegistrationEntry> ContentEntries { get; } =
