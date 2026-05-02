@@ -3,12 +3,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using STS2RitsuLib.Content;
+using STS2RitsuLib.Interop.AutoRegistration;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
+    [RegisterOwnedCardKeyword("harpoon")]
     public sealed class DualHarpoonEvil()
-        : SwarmCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+        : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords =>
             [CardKeyword.Retain, CardKeyword.Exhaust];
@@ -21,7 +23,7 @@ namespace SwarmTheSpire.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<DualHarpoonEvilPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<DualHarpoonEvilPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

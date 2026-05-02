@@ -13,7 +13,7 @@ using SwarmTheSpire.Relics;
 namespace SwarmTheSpire.Cards
 {
     public sealed class SpareHarpoon()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 
@@ -65,7 +65,6 @@ namespace SwarmTheSpire.Cards
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);
-                WeAreMilesRelic.TryIncrementCatch(Owner);
             }
         }
 

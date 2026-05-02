@@ -9,7 +9,7 @@ using SwarmTheSpire.Powers;
 namespace SwarmTheSpire.Cards
 {
     public sealed class EvilStrike()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
@@ -28,8 +28,8 @@ namespace SwarmTheSpire.Cards
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
-            await PowerCmd.Apply<MilesPower>(cardPlay.Target, DynamicVars["MilesPower"].BaseValue, Owner.Creature,
-                this);
+            await PowerCmd.Apply<MilesPower>(choiceContext, cardPlay.Target, DynamicVars["MilesPower"].BaseValue,
+                Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

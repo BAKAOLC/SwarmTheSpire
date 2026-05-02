@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace SwarmTheSpire.Cards
 {
     public sealed class PirateEvil()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 
@@ -56,7 +56,9 @@ namespace SwarmTheSpire.Cards
             if (wasTargetWeak) await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
             if (shouldTriggerFatal && attackCommand.Results.Any(r => r.WasTargetKilled))
             {
-                if (monsterPos.HasValue) VfxCmd.PlayVfx(monsterPos.Value, "vfx/vfx_coin_explosion_regular");
+                if (monsterPos.HasValue)
+                    VfxCmd.PlayVfx(monsterPos.Value, "vfx/vfx_coin_explosion_regular",
+                        NCombatRoom.Instance?.CombatVfxContainer);
                 await PlayerCmd.GainGold(DynamicVars["Gold"].IntValue, Owner);
             }
         }

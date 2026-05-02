@@ -51,6 +51,8 @@ namespace SwarmTheSpire
             public const string CharacterSelectLockedIcon = Root + "/images/char_select_evil_locked.png";
             public const string ArmPointingTexture = Root + "/images/ui/hands/multiplayer_hand_evil_point.png";
             public const string SharedPowerIcon = Root + "/images/powers/SwarmTheSpire-miles_power.png";
+
+            public const string NeuroPowerIcon = Root + "/images/powers/neuro.png";
             public const string CharacterTransitionSfx = "event:/sfx/ui/wipe_ironclad";
 
             public static string Card(string typeName)

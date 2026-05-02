@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace SwarmTheSpire.Cards
 {
     public sealed class FrenchFries()
-        : SwarmCardTemplate(6, CardType.Attack, CardRarity.Uncommon, TargetType.Self, true)
+        : SwarmEvilPoolCard(6, CardType.Attack, CardRarity.Uncommon, TargetType.Self, true)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>
         {
@@ -45,8 +45,8 @@ namespace SwarmTheSpire.Cards
                 await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
                     .TargetingAllOpponents(combatState)
                     .Execute(choiceContext);
-                await PowerCmd.Apply<WeakPower>(combatState.HittableEnemies, DynamicVars.Weak.BaseValue,
-                    Owner.Creature, this);
+                await PowerCmd.Apply<WeakPower>(choiceContext, combatState.HittableEnemies,
+                    DynamicVars.Weak.BaseValue, Owner.Creature, this);
             }
         }
 

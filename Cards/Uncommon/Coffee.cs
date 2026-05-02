@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class Coffee() : SwarmCardTemplate(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    public sealed class Coffee() : SwarmEvilPoolCard(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => new List<CardKeyword> { CardKeyword.Exhaust };
 

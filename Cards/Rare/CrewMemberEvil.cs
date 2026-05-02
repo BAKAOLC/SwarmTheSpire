@@ -5,13 +5,13 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class CrewMemberEvil() : SwarmCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
+    public sealed class CrewMemberEvil() : SwarmEvilPoolCard(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<CrewmemberPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<CrewmemberPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

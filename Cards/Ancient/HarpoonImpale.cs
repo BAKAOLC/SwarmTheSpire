@@ -13,7 +13,7 @@ using SwarmTheSpire.Relics;
 namespace SwarmTheSpire.Cards
 {
     public sealed class HarpoonImpale()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy, true)
     {
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
@@ -65,7 +65,6 @@ namespace SwarmTheSpire.Cards
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);
-                WeAreMilesRelic.TryIncrementCatch(Owner);
             }
         }
 

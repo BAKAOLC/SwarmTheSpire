@@ -10,17 +10,23 @@ using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
+using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire.Character;
+using SwarmTheSpire.Data;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Relics
 {
+    [RegisterCharacterStarterRelic(typeof(EvilCharacter))]
+    [RegisterTouchOfOrobasRefinement(typeof(WeAreMilesRelic))]
     public class MilesRelic : SwarmRelicTemplate
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 
         public override bool ShowCounter => true;
 
-        public override int DisplayAmount => CatchesCount;
+        public override int DisplayAmount =>
+            CatchesData.Instance.GlobalCatchesCount + CatchesData.Instance.CurrentCombatCatches;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<MilesPower>(1m)];
@@ -29,52 +35,57 @@ namespace SwarmTheSpire.Relics
             [HoverTipFactory.FromPower<MilesPower>()];
 
         [SavedProperty]
-        public int CatchesCount
-        {
-            get;
-            set
-            {
-                AssertMutable();
-                field = value;
-                InvokeDisplayAmountChanged();
-            }
-        }
+        public int SavedCatchCount { get; set; }
 
         public static void TryIncrementCatch(Player player)
         {
+            CatchesData.Instance.CurrentCombatCatches++;
             var relic = player.GetRelic<MilesRelic>();
-            if (relic is null)
-                return;
-
-            relic.Flash();
-            relic.CatchesCount++;
+            relic?.Flash();
+            relic?.InvokeDisplayAmountChanged();
         }
 
         public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
-            CombatState combatState)
+            ICombatState combatState)
         {
-            if (side == Owner.Creature.Side && combatState.RoundNumber <= 1)
-            {
-                Flash();
-                await PowerCmd.Apply<MilesPower>(combatState.HittableEnemies, DynamicVars["MilesPower"].BaseValue,
-                    Owner.Creature, null);
-            }
+            if (side != Owner.Creature.Side || combatState.RoundNumber > 1)
+                return;
+
+            CatchesData.Instance.CurrentCombatCatches = 0;
+            InvokeDisplayAmountChanged();
+            Flash();
+            await PowerCmd.Apply<MilesPower>(choiceContext, combatState.HittableEnemies,
+                DynamicVars["MilesPower"].BaseValue, Owner.Creature, null);
+        }
+
+        public override async Task AfterObtained()
+        {
+            CatchesData.Instance.GlobalCatchesCount = 0;
+            InvokeDisplayAmountChanged();
         }
 
         public override bool TryModifyRewards(Player player, List<Reward> rewards, AbstractRoom? room)
         {
-            if (player != Owner || room is null || CatchesCount <= 0)
+            if (player != Owner || room is null)
                 return false;
 
-            for (var i = 0; i < CatchesCount; i++)
+            var currentCombatCatches = CatchesData.Instance.CurrentCombatCatches;
+            if (currentCombatCatches <= 0)
+                return false;
+
+            CatchesData.Instance.GlobalCatchesCount += currentCombatCatches;
+            CatchesData.Instance.CurrentCombatCatches = 0;
+            SavedCatchCount = CatchesData.Instance.GlobalCatchesCount;
+            InvokeDisplayAmountChanged();
+
+            for (var i = 0; i < currentCombatCatches; i++)
             {
-                Flash();
+                var list = new List<RelicModel>();
                 switch (room.RoomType)
                 {
                     case RoomType.Monster:
-                    {
-                        var candidates = new List<RelicModel>
-                        {
+                        list.AddRange(
+                        [
                             ModelDb.Relic<RottenFleshRelic>().ToMutable(),
                             ModelDb.Relic<BoneRelic>().ToMutable(),
                             ModelDb.Relic<StringRelic>().ToMutable(),
@@ -82,19 +93,11 @@ namespace SwarmTheSpire.Relics
                             ModelDb.Relic<RawCodRelic>().ToMutable(),
                             ModelDb.Relic<RawSalmonRelic>().ToMutable(),
                             ModelDb.Relic<SwordOfStone>().ToMutable(),
-                        }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
-
-                        if (candidates.Count == 0)
-                            break;
-
-                        player.PlayerRng.Rewards.Shuffle(candidates);
-                        rewards.Add(new RelicReward(candidates[0], player));
+                        ]);
                         break;
-                    }
                     case RoomType.Elite:
-                    {
-                        var candidates = new List<RelicModel>
-                        {
+                        list.AddRange(
+                        [
                             ModelDb.Relic<Anchor>().ToMutable(),
                             ModelDb.Relic<HornCleat>().ToMutable(),
                             ModelDb.Relic<BeatingRemnant>().ToMutable(),
@@ -103,53 +106,56 @@ namespace SwarmTheSpire.Relics
                             ModelDb.Relic<RawSalmonRelic>().ToMutable(),
                             ModelDb.Relic<RottenFleshRelic>().ToMutable(),
                             ModelDb.Relic<CaptainsWheel>().ToMutable(),
-                        }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
-
-                        if (candidates.Count == 0)
-                            break;
-
-                        player.PlayerRng.Rewards.Shuffle(candidates);
-                        rewards.Add(new RelicReward(candidates[0], player));
+                        ]);
                         break;
-                    }
                     case RoomType.Boss:
-                    {
-                        var candidates = new List<RelicModel>
-                        {
+                        list.AddRange(
+                        [
                             ModelDb.Relic<WhiteStar>().ToMutable(),
                             ModelDb.Relic<TungstenRod>().ToMutable(),
                             ModelDb.Relic<OldCoin>().ToMutable(),
-                        }.Where(relic => relic.IsAllowed(player.RunState)).ToList();
-
-                        if (candidates.Count == 0)
-                            break;
-
-                        player.PlayerRng.Rewards.Shuffle(candidates);
-                        rewards.Add(new RelicReward(candidates[0], player));
+                        ]);
                         break;
-                    }
+                    default:
+                        continue;
                 }
+
+                var allowed = list.Where(r => r.IsAllowed(player.RunState)).ToList();
+                if (allowed.Count == 0)
+                    continue;
+
+                player.PlayerRng.Rewards.Shuffle(allowed);
+                Flash();
+                var take = Math.Min(1, allowed.Count);
+                rewards.AddRange(allowed.Take(take).Select(r => new RelicReward(r, player)));
             }
 
-            CatchesCount = 0;
             return true;
         }
 
         public override async Task AfterRoomEntered(AbstractRoom room)
         {
+            if (CatchesData.Instance.GlobalCatchesCount < SavedCatchCount)
+                CatchesData.Instance.GlobalCatchesCount = SavedCatchCount;
+
+            InvokeDisplayAmountChanged();
+
             switch (room.RoomType)
             {
                 case RoomType.Monster:
                     Flash();
-                    await PowerCmd.Apply<MonsterPower>(Owner.Creature, 1m, Owner.Creature, null);
+                    await PowerCmd.Apply<MonsterPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1m,
+                        Owner.Creature, null);
                     break;
                 case RoomType.Elite:
                     Flash();
-                    await PowerCmd.Apply<ElitePower>(Owner.Creature, 1m, Owner.Creature, null);
+                    await PowerCmd.Apply<ElitePower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1m,
+                        Owner.Creature, null);
                     break;
                 case RoomType.Boss:
                     Flash();
-                    await PowerCmd.Apply<BossPower>(Owner.Creature, 1m, Owner.Creature, null);
+                    await PowerCmd.Apply<BossPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1m,
+                        Owner.Creature, null);
                     break;
             }
         }

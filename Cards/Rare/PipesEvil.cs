@@ -10,7 +10,7 @@ using SwarmTheSpire.Powers;
 namespace SwarmTheSpire.Cards
 {
     public sealed class PipesEvil()
-        : SwarmCardTemplate(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies, true)
+        : SwarmEvilPoolCard(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 
@@ -28,7 +28,7 @@ namespace SwarmTheSpire.Cards
             ArgumentNullException.ThrowIfNull(combatState);
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).TargetingAllOpponents(combatState)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<PipesPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<PipesPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
             foreach (var hittableEnemy in combatState.HittableEnemies)
             {
                 await CreatureCmd.Stun(hittableEnemy);

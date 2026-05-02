@@ -8,7 +8,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public class CuteNoise() : SwarmCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies, true)
+    public class CuteNoise() : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies, true)
     {
         private const string StrengthLossKey = "StrengthLoss";
 
@@ -33,9 +33,9 @@ namespace SwarmTheSpire.Cards
             var hittableEnemies = combatState.HittableEnemies;
             foreach (var enemy in hittableEnemies)
             {
-                await PowerCmd.Apply<MilesPower>(enemy, DynamicVars["MilesPower"].BaseValue, Owner.Creature,
-                    this);
-                await PowerCmd.Apply<PiercingWailPower>(enemy, DynamicVars["StrengthLoss"].BaseValue,
+                await PowerCmd.Apply<MilesPower>(choiceContext, enemy, DynamicVars["MilesPower"].BaseValue,
+                    Owner.Creature, this);
+                await PowerCmd.Apply<PiercingWailPower>(choiceContext, enemy, DynamicVars["StrengthLoss"].BaseValue,
                     Owner.Creature, this);
             }
         }

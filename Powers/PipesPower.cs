@@ -19,10 +19,10 @@ namespace SwarmTheSpire.Powers
         public override PowerStackType StackType => PowerStackType.Single;
 
         public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
-            CombatState combatState)
+            ICombatState combatState)
         {
             Flash();
-            await PowerCmd.Apply<RingingPower>(Owner, 1m, Owner, null);
+            await PowerCmd.Apply<RingingPower>(choiceContext, Owner, 1m, Owner, null);
             await PowerCmd.Remove(this);
         }
     }

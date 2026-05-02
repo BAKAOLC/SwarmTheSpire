@@ -3,10 +3,13 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire.Character;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class DefendEvil() : SwarmCardTemplate(1, CardType.Skill, CardRarity.Basic, TargetType.Self, true)
+    [RegisterCharacterStarterCard(typeof(EvilCharacter), 4)]
+    public sealed class DefendEvil() : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self, true)
     {
         public override bool GainsBlock => true;
 

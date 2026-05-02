@@ -7,7 +7,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class PlasmaGlobe() : SwarmCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
+    public sealed class PlasmaGlobe() : SwarmEvilPoolCard(2, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 
@@ -16,7 +16,7 @@ namespace SwarmTheSpire.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<PlasmaPower>(Owner.Creature, 30m, Owner.Creature, this);
+            await PowerCmd.Apply<PlasmaPower>(choiceContext, Owner.Creature, 30m, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

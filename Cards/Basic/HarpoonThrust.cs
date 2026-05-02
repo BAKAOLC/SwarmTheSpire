@@ -7,13 +7,17 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Content;
+using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire.Character;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
 namespace SwarmTheSpire.Cards
 {
+    [RegisterCharacterStarterCard(typeof(EvilCharacter))]
+    [RegisterArchaicToothTranscendence(typeof(HarpoonImpale))]
     public sealed class HarpoonThrust()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy, true)
     {
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
@@ -65,7 +69,6 @@ namespace SwarmTheSpire.Cards
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);
-                WeAreMilesRelic.TryIncrementCatch(Owner);
             }
         }
 

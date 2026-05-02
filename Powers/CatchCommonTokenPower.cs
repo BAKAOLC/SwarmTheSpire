@@ -1,4 +1,6 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -14,8 +16,8 @@ namespace SwarmTheSpire.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
-            CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power,
+            decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (Amount <= 0)
                 return;
@@ -33,7 +35,7 @@ namespace SwarmTheSpire.Powers
             ];
             var forCombat =
                 CardFactory.GetForCombat(player, cardsToChoose, 1, player.RunState.Rng.CombatCardGeneration);
-            await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Hand, true, CardPilePosition.Top);
+            await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Hand, player, CardPilePosition.Top);
             await PowerCmd.Decrement(this);
         }
     }

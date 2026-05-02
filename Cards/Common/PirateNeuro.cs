@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace SwarmTheSpire.Cards
 {
     public sealed class PirateNeuro()
-        : SwarmCardTemplate(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [];
 

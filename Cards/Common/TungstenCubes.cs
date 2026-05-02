@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class TungstenCubes() : SwarmCardTemplate(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
+    public sealed class TungstenCubes() : SwarmEvilPoolCard(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
         public override bool GainsBlock => true;
 

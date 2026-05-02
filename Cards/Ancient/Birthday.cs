@@ -5,7 +5,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class Birthday() : SwarmCardTemplate(0, CardType.Skill, CardRarity.Ancient, TargetType.Self, true)
+    public sealed class Birthday() : SwarmEvilPoolCard(0, CardType.Skill, CardRarity.Ancient, TargetType.Self, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => new List<CardKeyword>
         {

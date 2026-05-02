@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace SwarmTheSpire.Cards
 {
     public sealed class Location()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
@@ -33,7 +33,8 @@ namespace SwarmTheSpire.Cards
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
                 .Execute(choiceContext);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(CreateClone(), (PileType)1, true),
+            CardCmd.PreviewCardPileAdd(
+                await CardPileCmd.AddGeneratedCardToCombat(CreateClone(), PileType.Draw, Owner, CardPilePosition.Top),
                 2.2f);
         }
 

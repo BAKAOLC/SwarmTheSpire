@@ -48,13 +48,13 @@ namespace SwarmTheSpire.Powers
             var clone = cardPlay.Card.CreateClone();
             CardCmd.ApplyKeyword(clone, CardKeyword.Retain);
             CardCmd.ApplyKeyword(clone, CardKeyword.Exhaust);
-            await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Hand, true, CardPilePosition.Top);
+            await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Hand, Owner.Player, CardPilePosition.Top);
             _wasUsedThisTurn = true;
             _trackedCard = null;
         }
 
         public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
-            CombatState combatState)
+            ICombatState combatState)
         {
             if (side != Owner.Side)
                 return Task.CompletedTask;

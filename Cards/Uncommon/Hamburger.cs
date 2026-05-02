@@ -8,7 +8,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class Hamburger() : SwarmCardTemplate(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    public sealed class Hamburger() : SwarmEvilPoolCard(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => new List<CardKeyword> { CardKeyword.Exhaust };
 

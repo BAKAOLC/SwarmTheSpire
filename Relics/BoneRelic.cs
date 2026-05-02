@@ -21,15 +21,15 @@ namespace SwarmTheSpire.Relics
             [HoverTipFactory.FromPower<PlatingPower>()];
 
         public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
-            CombatState combatState)
+            ICombatState combatState)
         {
             if (side != Owner.Creature.Side || combatState.RoundNumber > 1)
                 return;
 
             Flash();
             for (var i = 0; i < CatchStacks; i++)
-                await PowerCmd.Apply<PlatingPower>(Owner.Creature, DynamicVars["PlatingPower"].BaseValue,
-                    Owner.Creature, null);
+                await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature,
+                    DynamicVars["PlatingPower"].BaseValue, Owner.Creature, null);
         }
 
         public override async Task AfterObtained()

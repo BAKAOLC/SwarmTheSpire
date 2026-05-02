@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class HotChicken() : SwarmCardTemplate(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    public sealed class HotChicken() : SwarmEvilPoolCard(6, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => new List<CardKeyword> { CardKeyword.Exhaust };
 
@@ -34,8 +34,8 @@ namespace SwarmTheSpire.Cards
             if (card == this)
             {
                 NPowerUpVfx.CreateNormal(Owner.Creature);
-                await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars["StrengthPower"].BaseValue,
-                    Owner.Creature, this);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature,
+                    DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
             }
         }

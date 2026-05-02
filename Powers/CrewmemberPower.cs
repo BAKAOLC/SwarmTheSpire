@@ -22,7 +22,7 @@ namespace SwarmTheSpire.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
         public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
-            CombatState combatState)
+            ICombatState combatState)
         {
             var source = new List<CardModel>
             {
@@ -35,7 +35,7 @@ namespace SwarmTheSpire.Powers
             ArgumentNullException.ThrowIfNull(ownerPlayer);
             await CardPileCmd.AddGeneratedCardsToCombat(
                 CardFactory.GetForCombat(ownerPlayer, source.Select(c => c), AmountOnTurnStart,
-                    ownerPlayer.RunState.Rng.CombatCardGeneration), (PileType)2, true);
+                    ownerPlayer.RunState.Rng.CombatCardGeneration), PileType.Hand, ownerPlayer, CardPilePosition.Top);
         }
     }
 }

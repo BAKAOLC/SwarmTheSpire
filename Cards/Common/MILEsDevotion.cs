@@ -8,7 +8,7 @@ using SwarmTheSpire.Powers;
 namespace SwarmTheSpire.Cards
 {
     public sealed class MilesDevotion()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags =>
         [

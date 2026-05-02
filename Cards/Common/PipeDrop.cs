@@ -9,7 +9,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public class PipeDrop() : SwarmCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies, true)
+    public class PipeDrop() : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies, true)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => new List<CardKeyword> { CardKeyword.Exhaust };
 
@@ -35,10 +35,11 @@ namespace SwarmTheSpire.Cards
             var hittableEnemies = combatState.HittableEnemies;
             foreach (var enemy in hittableEnemies)
             {
-                await PowerCmd.Apply<WeakPower>(enemy, DynamicVars["WeakPower"].BaseValue, Owner.Creature, this);
+                await PowerCmd.Apply<WeakPower>(choiceContext, enemy, DynamicVars["WeakPower"].BaseValue,
+                    Owner.Creature, this);
                 if (enemy.HasPower<MilesPower>())
-                    await PowerCmd.Apply<VulnerablePower>(enemy, DynamicVars["VulnerablePower"].BaseValue,
-                        Owner.Creature, this);
+                    await PowerCmd.Apply<VulnerablePower>(choiceContext, enemy,
+                        DynamicVars["VulnerablePower"].BaseValue, Owner.Creature, this);
             }
         }
 

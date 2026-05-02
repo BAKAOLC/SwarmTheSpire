@@ -9,7 +9,7 @@ using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class EvilPlush() : SwarmCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies, true)
+    public sealed class EvilPlush() : SwarmEvilPoolCard(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies, true)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<MilesPower>(1m)];
@@ -58,8 +58,8 @@ namespace SwarmTheSpire.Cards
             var hittableEnemies = combatState.HittableEnemies;
             foreach (var item in hittableEnemies)
                 if (item.IsAlive)
-                    await PowerCmd.Apply<MilesPower>(item, DynamicVars["MilesPower"].BaseValue, Owner.Creature,
-                        this);
+                    await PowerCmd.Apply<MilesPower>(choiceContext, item, DynamicVars["MilesPower"].BaseValue,
+                        Owner.Creature, this);
         }
 
         public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card,
@@ -70,7 +70,8 @@ namespace SwarmTheSpire.Cards
             {
                 var combatState = CombatState;
                 ArgumentNullException.ThrowIfNull(combatState);
-                await PowerCmd.Apply<MilesPower>(combatState.HittableEnemies, resolved, Owner.Creature, this);
+                await PowerCmd.Apply<MilesPower>(choiceContext, combatState.HittableEnemies, resolved,
+                    Owner.Creature, this);
             }
         }
 

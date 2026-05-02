@@ -1,16 +1,20 @@
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models.Characters;
+using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using SwarmTheSpire.Content.Descriptors;
 
 namespace SwarmTheSpire.Character
 {
+    [RegisterCharacter]
     public sealed class EvilCharacter : ModCharacterTemplate<EvilCardPool, EvilRelicPool, EvilPotionPool>
     {
         public static readonly Color Color = new("8080ff");
 
         public static readonly Color EnergyOutlineColor = new("1a1aff");
+
+        public override bool RequiresEpochAndTimeline => false;
 
         public override Color NameColor => Color;
 

@@ -3,11 +3,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire.Character;
 
 namespace SwarmTheSpire.Cards
 {
+    [RegisterCharacterStarterCard(typeof(EvilCharacter), 4)]
     public sealed class StrikeEvil()
-        : SwarmCardTemplate(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy, true)
+        : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy, true)
     {
         protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 

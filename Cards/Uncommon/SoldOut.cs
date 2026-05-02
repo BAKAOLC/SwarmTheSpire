@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace SwarmTheSpire.Cards
 {
-    public sealed class SoldOut() : SwarmCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    public sealed class SoldOut() : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];

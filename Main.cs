@@ -3,8 +3,10 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
 using STS2RitsuLib.Audio;
+using STS2RitsuLib.Interop;
+using STS2RitsuLib.Patching.Core;
 using SwarmTheSpire.Content;
-using FileAccess = Godot.FileAccess;
+using SwarmTheSpire.Patches;
 
 namespace SwarmTheSpire
 {
@@ -31,9 +33,21 @@ namespace SwarmTheSpire
 
             try
             {
-                RitsuLibFramework.EnsureGodotScriptsRegistered(Assembly.GetExecutingAssembly(), Logger);
+                var assembly = Assembly.GetExecutingAssembly();
+                RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
+
+                var gameplayPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "gameplay", "gameplay");
+                gameplayPatcher.RegisterPatch<DustyTomeEvilAncientCardPatch>();
+                if (!RitsuLibFramework.ApplyRequiredPatcher(gameplayPatcher, () => IsModActive = false))
+                {
+                    Logger.Error("Mod initialization failed: gameplay patcher could not apply.");
+                    return;
+                }
+
                 QueueEvilFmodBankAfterDeferredInitialization();
                 SwarmTheSpireContentRegistrar.RegisterAll();
+                ModTypeDiscoveryHub.RegisterModAssembly(Const.ModId, assembly);
+
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");
             }
