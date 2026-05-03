@@ -4,11 +4,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
     [RegisterOwnedCardKeyword("harpoon")]
+    [RegisterOwnedCardTag("harpoon")]
     public sealed class DualHarpoonEvil()
         : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
@@ -17,6 +19,8 @@ namespace SwarmTheSpire.Cards
 
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
+
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Evz];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromKeyword(CardKeyword.Retain), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];

@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire;
 using SwarmTheSpire.Character;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
@@ -22,13 +23,13 @@ namespace SwarmTheSpire.Cards
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Harpoon];
 
         public override TargetType TargetType => HasQueenPower ? TargetType.AllEnemies : TargetType.AnyEnemy;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new CalculationBaseVar(10m),
+            new CalculationBaseVar(8m),
             new ExtraDamageVar(2m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier((_, target) =>
                 target?.GetPowerAmount<MilesPower>() ?? 0),
@@ -52,12 +53,16 @@ namespace SwarmTheSpire.Cards
                 return;
 
             ArgumentNullException.ThrowIfNull(combatState);
-            foreach (var hittableEnemy in combatState.HittableEnemies)
+            var queenPowerCount = Owner.Creature.GetPowerAmount<QueenPower>();
+            for (var i = 0; i < queenPowerCount; i++)
             {
-                var followUpAttack = await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this)
-                    .Targeting(hittableEnemy)
-                    .Execute(choiceContext);
-                TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                foreach (var hittableEnemy in combatState.HittableEnemies)
+                {
+                    var followUpAttack = await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this)
+                        .Targeting(hittableEnemy)
+                        .Execute(choiceContext);
+                    TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                }
             }
 
             return;

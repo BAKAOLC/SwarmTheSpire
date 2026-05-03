@@ -45,10 +45,15 @@ namespace SwarmTheSpire.Powers
             if (cardPlay.Card != _trackedCard)
                 return;
 
-            var clone = cardPlay.Card.CreateClone();
-            CardCmd.ApplyKeyword(clone, CardKeyword.Retain);
-            CardCmd.ApplyKeyword(clone, CardKeyword.Exhaust);
-            await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Hand, Owner.Player, CardPilePosition.Top);
+            var count = (int)Math.Max(0m, Amount);
+            for (var i = 0; i < count; i++)
+            {
+                var clone = cardPlay.Card.CreateClone();
+                CardCmd.ApplyKeyword(clone, CardKeyword.Retain);
+                CardCmd.ApplyKeyword(clone, CardKeyword.Exhaust);
+                await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Hand, Owner.Player, CardPilePosition.Top);
+            }
+
             _wasUsedThisTurn = true;
             _trackedCard = null;
         }

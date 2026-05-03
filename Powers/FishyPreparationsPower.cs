@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace SwarmTheSpire.Powers
@@ -25,7 +24,7 @@ namespace SwarmTheSpire.Powers
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
-            HoverTipFactory.FromPower<VigorPower>(),
+            HoverTipFactory.FromPower<ChargePower>(),
             HoverTipFactory.Static(StaticHoverTip.Block),
         ];
 
@@ -35,8 +34,8 @@ namespace SwarmTheSpire.Powers
                 return;
 
             Flash();
-            await PowerCmd.Apply<VigorPower>(choiceContext, Owner, Amount, Owner, null);
-            await CreatureCmd.GainBlock(Owner, Owner.GetPowerAmount<VigorPower>(), ValueProp.Move, null);
+            await PowerCmd.Apply<ChargePower>(choiceContext, Owner, Amount, Owner, null);
+            await CreatureCmd.GainBlock(Owner, Owner.GetPowerAmount<ChargePower>(), ValueProp.Unpowered, null);
         }
     }
 }

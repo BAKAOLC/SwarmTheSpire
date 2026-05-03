@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Content;
+using SwarmTheSpire;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
@@ -15,7 +16,7 @@ namespace SwarmTheSpire.Cards
     public sealed class SpareHarpoon()
         : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Harpoon];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords =>
             [CardKeyword.Exhaust, CardKeyword.Retain];
@@ -28,7 +29,7 @@ namespace SwarmTheSpire.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new DamageVar(9m, ValueProp.Move),
+            new DamageVar(8m, ValueProp.Move),
             new CardsVar(1),
         ];
 
@@ -46,12 +47,16 @@ namespace SwarmTheSpire.Cards
             if (HasQueenPower)
             {
                 ArgumentNullException.ThrowIfNull(combatState);
-                foreach (var hittableEnemy in combatState.HittableEnemies)
+                var queenPowerCount = Owner.Creature.GetPowerAmount<QueenPower>();
+                for (var i = 0; i < queenPowerCount; i++)
                 {
-                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
-                        .Targeting(hittableEnemy)
-                        .Execute(choiceContext);
-                    TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                    foreach (var hittableEnemy in combatState.HittableEnemies)
+                    {
+                        var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
+                            .Targeting(hittableEnemy)
+                            .Execute(choiceContext);
+                        TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                    }
                 }
             }
 
@@ -70,11 +75,12 @@ namespace SwarmTheSpire.Cards
 
         public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
-            if (Pile?.Type != PileType.Discard)
+            if (Pile?.Type != PileType.Exhaust)
                 return Task.CompletedTask;
 
-            var isHarpoon = SwarmCardPredicates.IsHarpoon(cardPlay.Card);
-            if (!isHarpoon || cardPlay.Card == this || cardPlay.Card.GetType() == GetType())
+            if (!SwarmCardPredicates.IsHarpoon(cardPlay.Card) || cardPlay.Card == this ||
+                cardPlay.Card.GetType() == GetType() ||
+                cardPlay.Card.Owner.Creature != Owner.Creature)
                 return Task.CompletedTask;
 
             CardPileCmd.Add(this, PileType.Hand, CardPilePosition.Top);

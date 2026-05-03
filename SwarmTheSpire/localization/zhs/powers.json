@@ -32,5 +32,8 @@
   "SWARM_THE_SPIRE_POWER_PIPES_POWER.title": "余音绕梁",
   "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.description": "在你的回合开始时，将[blue]1[/blue]张随机食物牌加入你的[gold]手牌[/gold]。",
   "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.smartDescription": "在你的回合开始时，将[blue]{Amount}[/blue]张随机食物牌加入你的[gold]手牌[/gold]。",
-  "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.title": "店员Evil"
+  "SWARM_THE_SPIRE_POWER_CREWMEMBER_POWER.title": "店员Evil",
+  "SWARM_THE_SPIRE_POWER_CHARGE_POWER.description": "使下一张鱼叉牌造成的伤害增加。",
+  "SWARM_THE_SPIRE_POWER_CHARGE_POWER.smartDescription": "下一张鱼叉牌造成的伤害增加[blue]{Amount}[/blue]点。",
+  "SWARM_THE_SPIRE_POWER_CHARGE_POWER.title": "蓄力"
 }

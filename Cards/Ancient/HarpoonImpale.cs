@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Content;
+using SwarmTheSpire;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
@@ -18,7 +19,7 @@ namespace SwarmTheSpire.Cards
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Harpoon];
 
         public override TargetType TargetType => HasQueenPower ? TargetType.AllEnemies : TargetType.AnyEnemy;
 
@@ -48,12 +49,16 @@ namespace SwarmTheSpire.Cards
                 return;
 
             ArgumentNullException.ThrowIfNull(combatState);
-            foreach (var hittableEnemy in combatState.HittableEnemies)
+            var queenPowerCount = Owner.Creature.GetPowerAmount<QueenPower>();
+            for (var i = 0; i < queenPowerCount; i++)
             {
-                var followUpAttack = await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this)
-                    .Targeting(hittableEnemy)
-                    .Execute(choiceContext);
-                TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                foreach (var hittableEnemy in combatState.HittableEnemies)
+                {
+                    var followUpAttack = await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this)
+                        .Targeting(hittableEnemy)
+                        .Execute(choiceContext);
+                    TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                }
             }
 
             return;

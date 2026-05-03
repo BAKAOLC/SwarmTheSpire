@@ -3,9 +3,13 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib.CardTags;
+using STS2RitsuLib.Interop.AutoRegistration;
+using SwarmTheSpire;
 
 namespace SwarmTheSpire.Cards
 {
+    [RegisterOwnedCardTag("evz")]
     public sealed class EVZ()
         : SwarmEvilPoolCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true)
     {
@@ -20,7 +24,7 @@ namespace SwarmTheSpire.Cards
             {
                 var pool = Owner.Character.CardPool
                     .GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
-                    .Where(SwarmCardPredicates.IsEvzPoolCard)
+                    .Where(static c => c.HasModCardTag(SwarmCardTagIds.Evz))
                     .ToList();
 
                 var choices = CardFactory.GetDistinctForCombat(Owner, pool, 3, Owner.RunState.Rng.CombatCardGeneration)

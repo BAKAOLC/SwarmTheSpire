@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
+using SwarmTheSpire;
 using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
@@ -12,7 +13,7 @@ namespace SwarmTheSpire.Cards
     public sealed class PipesEvil()
         : SwarmEvilPoolCard(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies, true)
     {
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Evz];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [StunIntent.GetStaticHoverTip()];

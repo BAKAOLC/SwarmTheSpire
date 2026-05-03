@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Models.Powers;
+using SwarmTheSpire.Powers;
 
 namespace SwarmTheSpire.Cards
 {
@@ -14,17 +14,17 @@ namespace SwarmTheSpire.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new PowerVar<VigorPower>(15m),
+            new PowerVar<ChargePower>(15m),
             new DynamicVar("Gold", -50m),
         ];
 
         public async Task OnChosen()
         {
             await PlayerCmd.GainGold(DynamicVars["Gold"].IntValue, Owner, false);
-            await PowerCmd.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), Owner.Creature,
-                DynamicVars["VigorPower"].BaseValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<ChargePower>(new ThrowingPlayerChoiceContext(), Owner.Creature,
+                DynamicVars["ChargePower"].BaseValue, Owner.Creature, this, false);
         }
 
-        protected override void OnUpgrade() => DynamicVars["VigorPower"].UpgradeValueBy(10m);
+        protected override void OnUpgrade() => DynamicVars["ChargePower"].UpgradeValueBy(10m);
     }
 }

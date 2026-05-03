@@ -8,13 +8,14 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.TestSupport;
 using MegaCrit.Sts2.Core.ValueProps;
+using SwarmTheSpire;
 
 namespace SwarmTheSpire.Cards
 {
     public sealed class PirateEvil()
         : SwarmEvilPoolCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Evz];
 
         protected override bool ShouldGlowGoldInternal
         {

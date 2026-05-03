@@ -58,5 +58,15 @@
   "SWARM_THE_SPIRE_CARD_THE_QUEEN_OF_HARPOONS.description": "你的[gold]鱼叉[/gold]会对全体敌人造成伤害。",
   "SWARM_THE_SPIRE_CARD_THE_QUEEN_OF_HARPOONS.title": "鱼叉女王",
   "SWARM_THE_SPIRE_CARD_BIRTHDAY.description": "回复{Heal}点生命。",
-  "SWARM_THE_SPIRE_CARD_BIRTHDAY.title": "生日"
+  "SWARM_THE_SPIRE_CARD_BIRTHDAY.title": "生日",
+  "SWARM_THE_SPIRE_CARD_HARPOON.description": "造成固定为{Damage:diff()}点的伤害。\n该伤害不会被格挡且无法被反击",
+  "SWARM_THE_SPIRE_CARD_HARPOON.title": "鱼叉",
+  "SWARM_THE_SPIRE_CARD_FISHY1.description": "余额+{Gold:diff()}。\n[gold]蓄力[/gold]{ChargePower:diff()}。",
+  "SWARM_THE_SPIRE_CARD_FISHY1.title": "小卖一点",
+  "SWARM_THE_SPIRE_CARD_FISHY2.description": "余额{Gold:diff()}。\n[gold]蓄力[/gold]+{ChargePower:diff()}。",
+  "SWARM_THE_SPIRE_CARD_FISHY2.title": "先买一点",
+  "SWARM_THE_SPIRE_CARD_FISHY3.description": "余额{Gold:diff()}。\n[gold]蓄力[/gold]+{ChargePower:diff()}。",
+  "SWARM_THE_SPIRE_CARD_FISHY3.title": "豪掷千金",
+  "SWARM_THE_SPIRE_CARD_FISHY_PREPARATIONS.description": "获得{ChargePower:diff()}点[gold]蓄力[/gold]。\n每回合结束时获得1点[gold]蓄力[/gold]，并获得等同于当前蓄力层数的[gold]格挡[/gold]。",
+  "SWARM_THE_SPIRE_CARD_FISHY_PREPARATIONS.title": "未鱼绸缪"
 }

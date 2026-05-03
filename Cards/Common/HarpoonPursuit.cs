@@ -5,7 +5,9 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.CardTags;
 using STS2RitsuLib.Content;
+using SwarmTheSpire;
 using SwarmTheSpire.Powers;
 using SwarmTheSpire.Relics;
 
@@ -17,14 +19,14 @@ namespace SwarmTheSpire.Cards
         protected override IEnumerable<string> RegisteredKeywordIds =>
             [ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "harpoon")];
 
-        protected override HashSet<CardTag> CanonicalTags => [];
+        protected override IEnumerable<string> RegisteredCardTagIds => [SwarmCardTagIds.Harpoon];
 
         protected override bool ShouldGlowGoldInternal => WasLastCardPlayedHarpoon;
 
         public override TargetType TargetType => HasQueenPower ? TargetType.AllEnemies : TargetType.AnyEnemy;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new DamageVar(11m, ValueProp.Move)];
+            [new DamageVar(9m, ValueProp.Move)];
 
         private bool HasQueenPower => CombatManager.Instance.IsInProgress && Owner.Creature.HasPower<QueenPower>();
 
@@ -34,7 +36,7 @@ namespace SwarmTheSpire.Cards
             {
                 var val = CombatManager.Instance.History.CardPlaysStarted.LastOrDefault(e =>
                     e.CardPlay.Card.Owner == Owner && e.CardPlay.Card != this);
-                return val != null && SwarmCardPredicates.IsHarpoon(val.CardPlay.Card);
+                return val != null && val.CardPlay.Card.HasModCardTag(SwarmCardTagIds.Harpoon);
             }
         }
 
@@ -50,12 +52,16 @@ namespace SwarmTheSpire.Cards
             if (HasQueenPower)
             {
                 ArgumentNullException.ThrowIfNull(combatState);
-                foreach (var hittableEnemy in combatState.HittableEnemies)
+                var queenPowerCount = Owner.Creature.GetPowerAmount<QueenPower>();
+                for (var i = 0; i < queenPowerCount; i++)
                 {
-                    var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
-                        .Targeting(hittableEnemy)
-                        .Execute(choiceContext);
-                    TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                    foreach (var hittableEnemy in combatState.HittableEnemies)
+                    {
+                        var followUpAttack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this)
+                            .Targeting(hittableEnemy)
+                            .Execute(choiceContext);
+                        TryIncrementCatch(shouldTriggerFatal, followUpAttack);
+                    }
                 }
             }
 
