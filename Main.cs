@@ -15,8 +15,6 @@ namespace SwarmTheSpire
     {
         public static readonly Logger Logger = RitsuLibFramework.CreateLogger(Const.ModId);
 
-        private static IDisposable? _evilBankDeferredInitSubscription;
-
         public static bool IsModActive { get; private set; }
 
         public static void Initialize()
@@ -44,7 +42,8 @@ namespace SwarmTheSpire
                     return;
                 }
 
-                QueueEvilFmodBankAfterDeferredInitialization();
+                FmodStudioDeferredBankRegistration.RegisterBank(Const.Paths.EvilBank);
+                FmodStudioDeferredBankRegistration.RegisterStudioGuidMappings(Const.Paths.EvilGuidsFile);
                 SwarmTheSpireContentRegistrar.RegisterAll();
                 ModTypeDiscoveryHub.RegisterModAssembly(Const.ModId, assembly);
 
@@ -59,41 +58,5 @@ namespace SwarmTheSpire
             }
         }
 
-        private static void QueueEvilFmodBankAfterDeferredInitialization()
-        {
-            if (_evilBankDeferredInitSubscription != null)
-                return;
-
-            _evilBankDeferredInitSubscription =
-                RitsuLibFramework.SubscribeLifecycle<DeferredInitializationCompletedEvent>(_ =>
-                {
-                    try
-                    {
-                        if (FmodStudioServer.TryGet() is null)
-                        {
-                            Logger.Warn("FmodServer singleton missing; skipped FMOD bank load.");
-                            return;
-                        }
-
-                        LoadEvilFmodBanksAligned();
-                    }
-                    finally
-                    {
-                        _evilBankDeferredInitSubscription?.Dispose();
-                        _evilBankDeferredInitSubscription = null;
-                    }
-                });
-        }
-
-        private static void LoadEvilFmodBanksAligned()
-        {
-            if (!FmodStudioServer.TryLoadBank(Const.Paths.EvilBank))
-            {
-                Logger.Warn($"Failed to load FMOD bank: {Const.Paths.EvilBank}");
-                return;
-            }
-
-            FmodStudioServer.TryLoadStudioGuidMappings(Const.Paths.EvilGuidsFile);
-        }
     }
 }
