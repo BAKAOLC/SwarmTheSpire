@@ -55,7 +55,7 @@ namespace SwarmTheSpire.Cards
                 .Targeting(cardPlay.Target)
                 .Execute(choiceContext);
             if (wasTargetWeak) await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-            if (shouldTriggerFatal && attackCommand.Results.Any(r => r.WasTargetKilled))
+            if (shouldTriggerFatal && attackCommand.Results.SelectMany(static r => r).Any(static r => r.WasTargetKilled))
             {
                 if (monsterPos.HasValue)
                     VfxCmd.PlayVfx(monsterPos.Value, "vfx/vfx_coin_explosion_regular",

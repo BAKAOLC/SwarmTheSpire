@@ -66,7 +66,8 @@ namespace SwarmTheSpire.Cards
             void TryIncrementCatch(bool canTriggerFatal, AttackCommand attackCommand)
             {
                 if (!canTriggerFatal ||
-                    !attackCommand.Results.Any(static result => result is { OverkillDamage: 0, WasTargetKilled: true }))
+                    !attackCommand.Results.SelectMany(static r => r)
+                        .Any(static result => result is { OverkillDamage: 0, WasTargetKilled: true }))
                     return;
 
                 MilesRelic.TryIncrementCatch(Owner);

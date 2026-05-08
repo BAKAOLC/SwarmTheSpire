@@ -51,7 +51,7 @@ namespace SwarmTheSpire.Cards
             return true;
         }
 
-        public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+        protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
         {
             var combatState = CombatState;
             ArgumentNullException.ThrowIfNull(combatState);

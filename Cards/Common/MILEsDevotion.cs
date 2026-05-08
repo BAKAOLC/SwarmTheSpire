@@ -26,7 +26,8 @@ namespace SwarmTheSpire.Cards
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
             if (cardPlay.Target.HasPower<MilesPower>())
-                await CreatureCmd.GainBlock(Owner.Creature, val.Results.Sum(r => r.TotalDamage + r.OverkillDamage),
+                await CreatureCmd.GainBlock(Owner.Creature,
+                    val.Results.SelectMany(static r => r).Sum(static r => r.TotalDamage + r.OverkillDamage),
                     ValueProp.Move, cardPlay);
         }
 
